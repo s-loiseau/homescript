@@ -1,2 +1,6 @@
 #!/bin/sh
-feh  --bg-scale '/home/krao/Downloads/no-mans-sky.png' 
+feh  --bg-scale '$HOME/Downloads/no-mans-sky.png' 
+#feh  --bg-scale '/home/username/Downloads/no-mans-sky.png' 
+
+# SHARED FOLDERS
+#feh  --bg-scale '/usr/share/pixmaps/no-mans-sky.png' 
