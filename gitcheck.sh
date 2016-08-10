@@ -8,6 +8,7 @@ echo "GIT CHECK"
 for x in $repolist;do
     echo -e "\n>>> $x"
     cd $reporoot/$x
+    git fetch
     git status -bs
 done
 cd $currdir
