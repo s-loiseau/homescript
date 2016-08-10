@@ -2,7 +2,7 @@
 # NAME    : Tmux session builder
 # COMMENT : tmux script to create a session with a few windows and panes
 # AUTHOR  : S.LOISEAU
-# CONTACT : 
+# CONTACT :
 # DATE    : 23 JUIN 2016
 #
 # USAGE   : ./tmuxbuild.sh [sessionname]
@@ -15,7 +15,7 @@ session=$(echo $HOSTNAME|cut -d. -f1)
 testtmux=$(tmux ls | cut -d: -f1|grep -cw $session)
 
 focusfirstpane () {
-    tmux select-pane -t $session:.
+    tmux select-pane -t $session:.+1
 }
 
 splitH () {
@@ -34,7 +34,7 @@ if [ $testtmux -gt 0 ];then
 else
     # CREATE SESSION
     echo CREATE SESSION $session
-    tmux -2 new-session -s $session -n HOME -d
+    tmux -2 new-session -s $session -n CODE -d
 fi
 
 # window 1 HOME
@@ -46,7 +46,7 @@ splitV
 focusfirstpane
 
 # window 2 code
-tmux new-window -n CODE
+tmux new-window -n HOME
 ##pane 2.1
 splitH
 ##pane 2.2
