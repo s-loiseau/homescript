@@ -15,7 +15,7 @@ session=$(echo $HOSTNAME|cut -d. -f1)
 testtmux=$(tmux ls | cut -d: -f1|grep -cw $session)
 
 focusfirstpane () {
-    tmux select-pane -t $session:.0
+    tmux select-pane -t $session:.
 }
 
 splitH () {
@@ -38,7 +38,7 @@ else
 fi
 
 # window 1 HOME
-[ -f GitCheck.sh ] && tmux send-keys -t $session:. 'GitCheck.sh' enter
+[ -f ~/tools/gitcheck.sh ] && tmux send-keys -t $session:. 'gitcheck.sh' enter
 ##pane 1.1
 splitH
 ##pane 1.2
