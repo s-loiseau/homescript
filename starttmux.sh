@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # NAME    : Tmux session builder
 # COMMENT : tmux script to create a session with a few windows and panes
 # AUTHOR  : S.LOISEAU
@@ -9,10 +9,11 @@
 
 
 #session=$(echo $REMOTEHOST|cut -d. -f1)
+source ~/.bashrc
 session=$(echo $HOSTNAME|cut -d. -f1)
 [ $1 ] && session=$1
 
-testtmux=$(tmux ls | cut -d: -f1|grep -cw $session)
+testtmux=$(tmux ls 2>/dev/null | cut -d: -f1|grep -cw $session)
 
 focusfirstpane () {
     tmux select-pane -t $session:.+1
