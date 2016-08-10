@@ -1,14 +1,21 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
 currdir=$(pwd)
 scriptdir=$(dirname $0)
 reporoot=$HOME
 repolist=$(<$scriptdir/repolist)
 
-echo "GIT CHECK"
-for x in $repolist;do
-    echo -e "\n>>> $x"
-    cd $reporoot/$x
+gitcheck() {
+    cd $reporoot/$1
     git fetch
-    git status -bs
+    status=$(git status -bs)
+    printf "\n>>> $x\n%s\n" "$status"
+}
+
+echo "--GIT CHECK--"
+for x in $repolist;do
+    gitcheck $x &
 done
+wait
+
 cd $currdir
