@@ -35,7 +35,7 @@ if [ $testtmux -gt 0 ];then
 else
     # CREATE SESSION
     echo CREATE SESSION $session
-    tmux -2 new-session -s $session -n CODE -d
+    tmux -2 new-session -s $session -n TMUX -d
 fi
 
 # window 1 HOME
@@ -47,21 +47,21 @@ splitV
 focusfirstpane
 
 # window 2 code
-tmux new-window -n HOME
+#tmux new-window -n HOME
 ##pane 2.1
-splitH
+#splitH
 ##pane 2.2
-splitV
-focusfirstpane
+#splitV
+#focusfirstpane
 
 # window 3 projet
-tmux new-window -n PROJETS
+#tmux new-window -n PROJETS
 ##pane 3.1
-splitH
-focusfirstpane
+#splitH
+#focusfirstpane
 
 # Focus on first window
 tmux select-window -t $session:1
-focusfirstpane
+#focusfirstpane
 
 tmux attach -t $session
