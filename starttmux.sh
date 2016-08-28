@@ -2,7 +2,7 @@
 # NAME    : Tmux session builder
 # COMMENT : tmux script to create a session with a few windows and panes
 # AUTHOR  : S.LOISEAU
-# CONTACT : 
+# CONTACT :
 # DATE    : 23 JUIN 2016
 #
 # USAGE   : ./tmuxbuild.sh [sessionname]
