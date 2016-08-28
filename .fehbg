@@ -1,5 +1,6 @@
 #!/bin/sh
-feh  --bg-scale '$HOME/Downloads/no-mans-sky.png' 
+
+feh  --bg-scale "$HOME/Downloads/no-mans-sky.png"
 #feh  --bg-scale '/home/username/Downloads/no-mans-sky.png' 
 
 # SHARED FOLDERS
