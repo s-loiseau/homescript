@@ -10,6 +10,7 @@
 
 #session=$(echo $REMOTEHOST|cut -d. -f1)
 source ~/.bashrc
+
 session=$(echo $HOSTNAME|cut -d. -f1)
 [ $1 ] && session=$1
 
@@ -42,6 +43,7 @@ fi
 [ -f ~/tools/gitcheck.sh ] && tmux send-keys -t $session:. 'gitcheck.sh' enter
 ##pane 1.1
 splitH
+tmux send-keys -t $session:. 'archey3 -c black' enter
 ##pane 1.2
 splitV
 focusfirstpane
