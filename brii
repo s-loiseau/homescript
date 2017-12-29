@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+
+value=${1:-90}
+currentbri=$(/usr/lib/gnome-settings-daemon/gsd-backlight-helper --get-brightness)
+maxbri=$(/usr/lib/gnome-settings-daemon/gsd-backlight-helper --get-max-brightness)
+
+newvalue=$(( $currentbri + $value ))
+
+msg=""
+
+if [ $value -lt 0 ];then
+    msg="brightness down $newvalue"
+fi
+
+if [ $value -gt 0 ];then
+    msg="brightness up $newvalue"
+fi
+
+if [ $newvalue -gt $maxbri ];then
+    msg="brightness MAX"
+    newvalue=$maxbri
+fi
+
+
+notify-send "$msg"
+sudo /usr/lib/gnome-settings-daemon/gsd-backlight-helper --set-brightness $newvalue
