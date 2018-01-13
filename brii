@@ -1,9 +1,17 @@
 #!/usr/bin/env bash
+# TODO:
+# -[x] remove gnome-settings-daemon dependency
 
+
+notif=false
 
 value=${1:-90}
-currentbri=$(/usr/lib/gnome-settings-daemon/gsd-backlight-helper --get-brightness)
-maxbri=$(/usr/lib/gnome-settings-daemon/gsd-backlight-helper --get-max-brightness)
+backlightdir="/sys/class/backlight/intel_backlight"
+maxfile="$backlightdir"/max_brightness
+brifile="$backlightdir"/brightness
+
+currentbri=$(cat $brifile)
+maxbri=$(cat  $maxfile)
 
 newvalue=$(( $currentbri + $value ))
 
@@ -22,6 +30,14 @@ if [ $newvalue -gt $maxbri ];then
     newvalue=$maxbri
 fi
 
+if [ $newvalue -lt 0 ];then
+    msg="brightness MIN"
+    newvalue=50
+fi
 
-notify-send "$msg"
-sudo /usr/lib/gnome-settings-daemon/gsd-backlight-helper --set-brightness $newvalue
+
+if [[ $notif == 'true' ]];then
+    notify-send "$msg"
+fi
+
+sudo tee $brifile <<< $newvalue > /dev/null
