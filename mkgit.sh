@@ -1,1 +1,0 @@
-../CODE/mkgit/mkgit.sh
