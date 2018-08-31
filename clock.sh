@@ -16,5 +16,7 @@ checkpid() {
 if [ -f $pidfile ];then
     checkpid
 else
+    currentid=$(xdotool getactivewindow)
     createclock
+    xdotool windowfocus $currentid
 fi
