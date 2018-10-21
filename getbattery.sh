@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
+# GET BATTERY INFO AND PASS THEM TO POPUP
 
-data=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0)
-timeb=$(echo "$data" | awk -F: '/time to empty/ {print $2}')
-percent=$(echo "$data" | awk -F: '/percent/ {print $2}')
-percent=$(echo "$percent" | sed 's/^\s\+//')
-timeb=$(echo "$timeb" | sed 's/^\s\+//')
+data=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 |\
+    grep percentage|\
+    awk '{print $2}' |\
+    awk -F% '{print $1}')
 
-notify-send "BATTERY: $percent $timeb"
+message="$(barman $data)"
+
+if pidof Xorg;then
+    notify-send "$message"
+else
+    echo $message
+fi

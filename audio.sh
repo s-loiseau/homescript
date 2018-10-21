@@ -14,15 +14,15 @@ if [ $status_hdmi -eq 1 ];then
     xrandr --output HDMI-2 --off
     # SWITCH TO SPEAKER
     pactl set-card-profile 0 output:analog-stereo+input:analog-stereo
-    notify-send "SPEAKER"
-    exit
-fi
-
-if [ $status_speaker -eq 1 ]; then
+    message='SPEAKER'
+elif [ $status_speaker -eq 1 ]; then
     # TURN ON HDMI VIDEO OUTPUT
     xrandr --auto
     # SWITCH TO HDMI AUDIO
     pactl set-card-profile 0 output:hdmi-stereo-extra1+input:analog-stereo
-    notify-send "HDMI"
-    exit
+    message='HDMI'
+fi
+
+if pidof Xorg;then
+    notify-send $message
 fi

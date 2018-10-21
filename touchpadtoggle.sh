@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Author    : 
+# Author    :
 # DATE      : 20 Oct 2017
 # SCRIPTNAME: touchpadtoggle.sh
 
@@ -11,9 +11,15 @@ if [ $STATE -eq 1 ]
 then
     xinput disable $ID
     # echo "Touchpad disabled."
-    notify-send -a 'Touchpad' 'Touchpad Disabled' -i /usr/share/icons/Adwaita/48x48/devices/input-touchpad.png
+    message="Touchpad KILLED"
 else
     xinput enable $ID
     # echo "Touchpad enabled."
-    notify-send -a 'Touchpad' 'Touchpad Enabled' -i /usr/share/icons/Adwaita/48x48/devices/input-touchpad.png
+    message="Touchpad KILLED"
+fi
+
+if pidof Xorg;then
+    notify-send $message
+else
+    echo $message
 fi

@@ -7,6 +7,7 @@ createclock() {
     pid=$!
     echo "$pid" > $pidfile
 }
+
 checkpid() {
     pid=$(cat $pidfile)
     kill $pid
@@ -18,5 +19,6 @@ if [ -f $pidfile ];then
 else
     currentid=$(xdotool getactivewindow)
     createclock
+    # check i3wm option 'no_focus'
     xdotool windowfocus $currentid
 fi

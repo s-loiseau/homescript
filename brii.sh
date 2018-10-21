@@ -3,7 +3,7 @@
 # -[x] remove gnome-settings-daemon dependency
 
 
-notif=false
+notif=true
 
 value=${1:-90}
 backlightdir="/sys/class/backlight/intel_backlight"
@@ -17,27 +17,24 @@ newvalue=$(( $currentbri + $value ))
 
 msg=""
 
-if [ $value -lt 0 ];then
-    msg="brightness down $newvalue"
-fi
-
-if [ $value -gt 0 ];then
-    msg="brightness up $newvalue"
-fi
-
 if [ $newvalue -gt $maxbri ];then
-    msg="brightness MAX"
     newvalue=$maxbri
 fi
 
 if [ $newvalue -lt 0 ];then
-    msg="brightness MIN"
     newvalue=50
 fi
 
 
-if [[ $notif == 'true' ]];then
+
+currentbri=$(cat $brifile)
+percent="$(( 100 * $currentbri / $maxbri ))"
+msg=$(barman $percent)
+
+if pidof Xorg;then
     notify-send "$msg"
+else
+    echo $msg
 fi
 
 sudo tee $brifile <<< $newvalue > /dev/null

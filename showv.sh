@@ -74,7 +74,7 @@ if __name__ == '__main__':
     # MENU
     # CONVERT AND RUN ROFI
     rofi_list = convert_byte(filter_list)
-    rofi_opts = ['rofi', '-dmenu', '-i', '-p', 'Movies:']
+    rofi_opts = ['rofi', '-dmenu', '-i', '-p', 'Movies']
     rofi         = run( rofi_opts, stdout=PIPE, input=rofi_list )
 
     # SHOW SELECTION
