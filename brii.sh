@@ -31,8 +31,8 @@ currentbri=$(cat $brifile)
 percent="$(( 100 * $currentbri / $maxbri ))"
 msg=$(barman $percent)
 
-if pidof Xorg;then
-    notify-send "$msg"
+if [ -n "$DISPLAY" ] ;then
+    notify-send $msg
 else
     echo $msg
 fi

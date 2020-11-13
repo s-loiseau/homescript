@@ -8,7 +8,8 @@ wallit() {
     rst=$(tput sgr0)
     echo $fg
     echo $bg
-    echo "$message" | figlet -kcf $font
+    echo
+    echo -e "$message" | figlet -kcf $font
     echo $rst
 }
 
@@ -23,4 +24,4 @@ wallit2() {
 }
 
 
-wallit2 "$1" $2 $3 ${4:-slant}
+wallit "$1" $2 $3 ${4:-slant}

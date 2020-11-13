@@ -6,10 +6,11 @@ data=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 |\
     awk '{print $2}' |\
     awk -F% '{print $1}')
 
+state=$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep state)
 message="$(barman $data)"
 
-if pidof Xorg;then
-    notify-send "$message"
+if [ -n "$DISPLAY" ] ;then
+    notify-send $message
 else
-    echo $message
+    echo $message $data $state
 fi

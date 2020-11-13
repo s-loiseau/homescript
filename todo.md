@@ -1,4 +1,8 @@
 # TODO
+- [ ] merge showv and showb with args for video and books
+- [ ] resize and center with xrandr | grep '*' ...
+  newh = (screenH - winH / 2)
+  newh = (screenW - winW / 2)
 
 ## important
 

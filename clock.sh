@@ -3,22 +3,26 @@
 pidfile="/tmp/.clockpid"
 
 createclock() {
-    urxvt -fn "xft:xos 4 terminus:regular:size=8" --geometry 40x10-5+5 --title "time" -e bash -c "tty-clock -cbBD" &
+    currentid=$(xdotool getactivewindow)
+    urxvt -letsp 2 \
+          -fn "xft:scientifica:regular:size=8" \
+          --geometry 40x10-25+15 \
+          --title "time" \
+          -e bash \
+          -c "tty-clock -cbBD" &
     pid=$!
     echo "$pid" > $pidfile
+    xdotool windowfocus $currentid
 }
 
 checkpid() {
-    pid=$(cat $pidfile)
-    kill $pid
-    rm $pidfile
+    if [ -f $pidfile ];then
+        pid=$(cat $pidfile)
+        kill $pid
+        rm $pidfile
+        exit 0
+    fi
 }
 
-if [ -f $pidfile ];then
-    checkpid
-else
-    currentid=$(xdotool getactivewindow)
-    createclock
-    # check i3wm option 'no_focus'
-    xdotool windowfocus $currentid
-fi
+checkpid
+createclock

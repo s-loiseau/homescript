@@ -18,7 +18,7 @@ else
     message="Touchpad KILLED"
 fi
 
-if pidof Xorg;then
+if [ -n "$DISPLAY" ] ;then
     notify-send $message
 else
     echo $message

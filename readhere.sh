@@ -16,5 +16,3 @@ if [ ${BASH_SOURCE[0]} == $0 ];then
 else
     mpv $geometry --really-quiet "$video"
 fi
-
-
