@@ -53,6 +53,14 @@ def almostfull():
     topleft()
 
 
+def cyclesize():
+    if winw == W - 2 * xborder and winh == H - 2 * yborder:
+        big()
+        topleft()
+    else:
+        resize(W, H)
+        topleft()
+
 def big():
     resize(1280, 1080)
 
@@ -78,25 +86,36 @@ def bottomright():
 
 
 
+def getpositions():
+    #'BL': (xborder,            H - winh - yborder),
+    #'BR': (W - winw - xborder, H - winh - yborder),
+    positions = {'TL': (xborder,            yborder),
+                 'C':  ((W - winw) // 2,    (H - winh) // 2 ),
+                 'TR': (W - winw - xborder, yborder),
+                 }
+    return positions
 
 
-windowid = runit('xdotool getactivewindow')[0]
 xborder = 10
 yborder = 10
+# screen geometry
 W, H = getdisplaywh()
-
-
-#resize(1280, 1080)
+# window geometry
+windowid = runit('xdotool getactivewindow')[0]
 x, y , winw, winh = getwindow_xywh()
 
-positions = {'TL': (xborder, yborder),
-             'TR': (W - winw - xborder, yborder),
-             'BL': (xborder, H - winh - yborder),
-             'BR': (W - winw - xborder, H - winh - yborder),
-             'C': ((W - winw) // 2, (H - winh) // 2 ),
-             }
+positions = getpositions()
 
-actionlist = [big, almostfull, bottomleft, center, topright]
 
-# random action
-random.choice(actionlist)()
+if len(sys.argv) > 1 and sys.argv[1] == 'size':
+    cyclesize()
+if len(sys.argv) > 1 and sys.argv[1] == 'move':
+    x, y , winw, winh = getwindow_xywh()
+    for k,v in positions.items():
+        if x < v[0]:
+            print(x, y, k, v)
+            move(v)
+            break
+        elif x > W // 2:
+            print("ALREADY RIGHT")
+            move(positions['TL'])
