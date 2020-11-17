@@ -62,8 +62,7 @@ def pixz(pixz):
         # command += "--zoom fill -."
         # commmand += "--no-screen-clip"
         # commmand += "--geometry %sx%s+%s+%s"
-        os.system("feh --zoom fill -. --no-screen-clip  --geometry %sx%s+%s+%s \'%s\' >/dev/null 2>&1 &" %
-                  (ww, wh, x, y, pix))
+        os.system("feh -. --zoom  --no-screen-clip  --geometry %sx%s+%s+%s \'%s\' >/dev/null 2>&1 &" % (ww, wh, x, y, pix))
 screendim = runit('xdotool getdisplaygeometry')
 w, h = screendim[0].split()
 

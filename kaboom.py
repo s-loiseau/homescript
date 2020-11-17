@@ -87,14 +87,23 @@ def bottomright():
 
 
 def getpositions():
-    #'BL': (xborder,            H - winh - yborder),
-    #'BR': (W - winw - xborder, H - winh - yborder),
     positions = {'TL': (xborder,            yborder),
+                 'BL': (xborder,            H - winh - yborder),
+                 'BR': (W - winw - xborder, H - winh - yborder),
                  'C':  ((W - winw) // 2,    (H - winh) // 2 ),
                  'TR': (W - winw - xborder, yborder),
                  }
     return positions
 
+
+def shuffle():
+    x, y , winw, winh = getwindow_xywh()
+    pos = random.choice(["BR", "TL", "TR", "C", "BL"])
+    move(positions[pos])
+    nx, ny , winw, winh = getwindow_xywh()
+    print(nx, x, ny, y)
+    if nx == x and ny == y:
+        shuffle()
 
 xborder = 10
 yborder = 10
@@ -110,12 +119,5 @@ positions = getpositions()
 if len(sys.argv) > 1 and sys.argv[1] == 'size':
     cyclesize()
 if len(sys.argv) > 1 and sys.argv[1] == 'move':
-    x, y , winw, winh = getwindow_xywh()
-    for k,v in positions.items():
-        if x < v[0]:
-            print(x, y, k, v)
-            move(v)
-            break
-        elif x > W // 2:
-            print("ALREADY RIGHT")
-            move(positions['TL'])
+    shuffle()
+
