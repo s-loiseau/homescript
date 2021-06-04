@@ -10,18 +10,22 @@ getvolume() {
 increase() {
     if [ $(getvolume) -lt 100 ];then
         pamixer -i 10
-        notify-send "VOLUME UP"
+        dunstctl close
+        notify-send "VOLUME UP $(getvolume)"
     else
-        notify-send "VOLUME MAX"
+        dunstctl close
+        notify-send "VOLUME MAX $(getvolume)"
     fi
 }
 
 decrease() {
     if [ $(getvolume) -gt 0 ];then
         pamixer -d 10
-        notify-send "VOLUME DOWN"
+        dunstctl close
+        notify-send "VOLUME DOWN $(getvolume)"
     else
-        notify-send "VOLUME MIN"
+        dunstctl close
+        notify-send "VOLUME MIN $(getvolume)"
     fi
 }
 
