@@ -8,11 +8,7 @@ w=$(echo "$wininfo"| grep "Width" | awk '{print $NF}')
 h=$(echo "$wininfo"| grep "Height" |awk '{print $NF}')
 
 geometry="-geometry ${w}x${h}+${cx}+${cy}"
-#echo $geometry
+echo "$wininfo"
+echo $geometry
 
-
-if [ ${BASH_SOURCE[0]} == $0 ];then
-    mpv $geometry --really-quiet "$video"
-else
-    mpv $geometry --really-quiet "$video"
-fi
+mpv $geometry --really-quiet "$video"
